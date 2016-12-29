@@ -4,6 +4,9 @@ class Country(models.Model):
 	code = models.CharField(primary_key=True, max_length=3) #ISO Alpha-3 Country Code
 	name = models.CharField(max_length=50, db_column="Name")
 
+	def __str__(self):
+		return self.name
+
 
 class Embassy(models.Model):
 	government = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="government")
