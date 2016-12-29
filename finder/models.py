@@ -6,6 +6,10 @@ class Country(models.Model):
 
 	def __str__(self):
 		return self.name
+		
+	class Meta:
+		verbose_name = 'Country'
+		verbose_name_plural = 'Countries'
 
 
 class Embassy(models.Model):
@@ -21,3 +25,7 @@ class Embassy(models.Model):
 
 	def __str__(self):
 		return self.name
+		
+	class Meta:
+		verbose_name = 'Embassy'
+		verbose_name_plural = 'Embassies'
