@@ -1,0 +1,18 @@
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'finder:search' %}" method="POST">
+	{% csrf_token %}
+	<label>Find Embassies sent by</label>
+	<select name="government">
+		{% for entry in countries %}
+			<option value="{{ entry.code }}">{{ entry.name }}</option>
+		{% endfor %}
+	</select>
+	<label>that are located in</label>
+	<select name="location">
+		{% for entry in countries %}
+			<option value="{{ entry.code }}">{{ entry.name }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Search" />
+</form>
