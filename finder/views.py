@@ -12,17 +12,21 @@ def index(request):
 	return render(request, 'finder/index.html', context)
 	
 def embassy_info(request, embassy_id):
-    return HttpResponse("You're looking at the Embassy %s." % embassy_id)
+	embassy = get_object_or_404(Embassy, pk=embassy_id)
+	context = {'embassy': embassy}
+	return render(request, 'finder/embassy_info.html', context)
 
 def country_info(request, code):
-    response = "You're looking at the Country %s."
-    return HttpResponse(response % code)
+	country = get_object_or_404(Country, code=code)
+	context = {'country': country}
+	return render(request, 'finder/country_info.html', context)
 
 def results(request, government_code, location_code):
-	print(government_code, location_code)
 	government = Country.objects.get(code=government_code)
 	location = Country.objects.get(code=location_code)
-	return HttpResponse("Here are the Embassies sent by %s, located in %s." % (government.name, location.name))
+	embassy = Embassy.objects.filter(government=government_code, location=location_code)
+	context = {'embassies':embassy, 'government':government, 'location':location}
+	return render(request, 'finder/results.html', context)
 	
 def search(request):
 	countries  = Country.objects.all()
@@ -47,4 +51,3 @@ def search(request):
 			# with POST data. This prevents data from being posted twice if a
 			# user hits the Back button.
 			return HttpResponseRedirect(reverse('finder:results', args=(selected_government.code,selected_location.code,)))
-			# return HttpResponseRedirect(reverse('finder:results', kwargs={'government':goverment.code, 'location':location.code}))

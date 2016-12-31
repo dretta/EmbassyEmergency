@@ -1,0 +1,16 @@
+{% if embassies %}
+	<h2>Here are the embassies sent by 
+		<a href="{% url 'finder:country_info' government.code %}">{{government}}</a>, located in 
+		<a href="{% url 'finder:country_info' location.code %}">{{location}}</a>:
+	</h2>
+    <ul>
+    {% for embassy in embassies %}
+        <li><a href="{% url 'finder:embassy_info' embassy.id %}">{{ embassy }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>There are no embassies sent by 
+		<a href="{% url 'finder:country_info' government.code %}">{{government}}</a> and located in 
+		<a href="{% url 'finder:country_info' location.code %}">{{location}}</a>
+	</p>
+{% endif %}
