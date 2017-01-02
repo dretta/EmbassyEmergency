@@ -3,23 +3,23 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import Country, Embassy
 from django.template import loader
 from django.urls import reverse
+from django.views import generic
 
+class IndexView(generic.base.TemplateView):
+    template_name = "finder/index.html"
 
-def index(request):
-	country = Country.objects.filter()
-	template = loader.get_template('finder/index.html')
-	context = {'countries': country}
-	return render(request, 'finder/index.html', context)
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['countries'] = Country.objects.all()
+        return context
 	
-def embassy_info(request, embassy_id):
-	embassy = get_object_or_404(Embassy, pk=embassy_id)
-	context = {'embassy': embassy}
-	return render(request, 'finder/embassy_info.html', context)
+class EmbassyView(generic.DetailView):
+    model = Embassy
+    template_name = 'finder/embassy_info.html'
 
-def country_info(request, code):
-	country = get_object_or_404(Country, code=code)
-	context = {'country': country}
-	return render(request, 'finder/country_info.html', context)
+class CountryView(generic.DetailView):
+    model = Country
+    template_name = 'finder/country_info.html'
 
 def results(request, government_code, location_code):
 	government = Country.objects.get(code=government_code)
