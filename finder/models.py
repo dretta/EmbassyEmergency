@@ -1,8 +1,18 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
+def validate_nonempty(value):
+	if value == "":
+		raise ValidationError(
+			_('%(value)s is an empty string'),
+			params={'value': value},
+		)
 
 class Country(models.Model):
+
 	code = models.CharField(primary_key=True, max_length=3) #ISO Alpha-3 Country Code
-	name = models.CharField(max_length=50, db_column="Name")
+	name = models.CharField(max_length=50, db_column="Name", validators=[validate_nonempty])
 
 	def __str__(self):
 		return self.name
