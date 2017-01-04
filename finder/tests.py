@@ -4,12 +4,15 @@ from django.core.exceptions import ValidationError
 
 class CountryModelTest(TestCase):
 
-	# def test_three_capital_letter_code(self):
-		# """
-		# A Country's code must be three captital letters.
-		# """
-		# c = Country(code="", name="Anarchy")
-		# self.assertNotEqual(c.code, "", "Country code is empty")
+	def test_code_length_three(self):
+		"""
+		A Country's code must exactly be a size of three
+		"""
+		c = Country(code="A", name="Anarchy")
+		with self.assertRaises(ValidationError) as context:
+			c.clean_fields()
+
+		self.assertTrue('%s is not a string size 3' % c.code in str(context.exception))
 
 	def test_nonempty_name(self):
 		"""

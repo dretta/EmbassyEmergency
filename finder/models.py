@@ -8,10 +8,22 @@ def validate_nonempty(value):
 			_('%(value)s is an empty string'),
 			params={'value': value},
 		)
+		
+def validate_string_length_three(value):
+	if not isinstance(value, str):
+		raise ValidationError(
+			_('%(value)s is not a string'),
+			params={'value': value},
+		)
+	elif len(value) != 3:
+		raise ValidationError(
+			_('%(value)s is not a string size 3'),
+			params={'value': value},
+		)
 
 class Country(models.Model):
 
-	code = models.CharField(primary_key=True, max_length=3) #ISO Alpha-3 Country Code
+	code = models.CharField(primary_key=True, max_length=3, validators=[validate_nonempty, validate_string_length_three]) #ISO Alpha-3 Country Code
 	name = models.CharField(max_length=50, db_column="Name", validators=[validate_nonempty])
 
 	def __str__(self):
