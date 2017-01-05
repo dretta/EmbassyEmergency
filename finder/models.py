@@ -21,9 +21,21 @@ def validate_string_length_three(value):
 			params={'value': value},
 		)
 
+def validate_string_all_caps(value):
+	if not isinstance(value, str):
+		raise ValidationError(
+			_('%(value)s is not a string'),
+			params={'value': value},
+		)
+	elif not (value.isupper() and value.isalpha()):
+		raise ValidationError(
+			_('%(value)s does not have all capital letters'),
+			params={'value': value},
+		)
+
 class Country(models.Model):
 
-	code = models.CharField(primary_key=True, max_length=3, validators=[validate_nonempty, validate_string_length_three]) #ISO Alpha-3 Country Code
+	code = models.CharField(primary_key=True, max_length=3, validators=[validate_nonempty, validate_string_length_three, validate_string_all_caps]) #ISO Alpha-3 Country Code
 	name = models.CharField(max_length=50, db_column="Name", validators=[validate_nonempty])
 
 	def __str__(self):
