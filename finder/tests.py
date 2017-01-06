@@ -34,7 +34,7 @@ class CountryModelTest(BaseTestCase):
 		"""
 		self.model_validation("ARY", "", "This field cannot be blank.")
 
-# class EmbassyModelTest(BaseTestCase):
+class EmbassyModelTest(BaseTestCase):
 	# def test_different_government_location(self):
 		# """
 		# The countries used for an embassy's government and location should never be the same.
@@ -45,3 +45,18 @@ class CountryModelTest(BaseTestCase):
 			# phone_number=1111011110, email_address="trolol@edgelord.net",
 			# website="fake.com")
 		# self.assertIs(Embassy(), False)
+
+	def test_nonempty_name(self):
+		"""
+		An Embassy's name cannot be empty
+		"""
+		c = self.create_country("LOL", "ANARCHY STATE")
+		e = Embassy(government=c, location=c, name="", 
+			street_address="The End of the World", city="Hypocrisy Town", 
+			phone_number=1111011110, email_address="trolol@edgelord.net",
+			website="fake.com")
+			
+		with self.assertRaises(ValidationError) as context:
+			e.clean_fields()
+
+		self.assertTrue("This field cannot be blank." in str(context.exception))

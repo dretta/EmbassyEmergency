@@ -32,6 +32,7 @@ def validate_string_all_caps(value):
 			_('%(value)s does not have all capital letters'),
 			params={'value': value},
 		)
+		
 
 class Country(models.Model):
 
@@ -49,7 +50,7 @@ class Country(models.Model):
 class Embassy(models.Model):
 	government = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="government")
 	location = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="location")
-	name = models.CharField(max_length=200, db_column="Name")
+	name = models.CharField(max_length=200, db_column="Name", validators=[validate_nonempty])
 	street_address = models.CharField(max_length=200, db_column="Address")
 	city = models.CharField(max_length=50, db_column="City")
 	phone_number = models.IntegerField(default=-1, db_column="Phone Number")
