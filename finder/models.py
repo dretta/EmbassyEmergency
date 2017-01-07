@@ -61,6 +61,11 @@ class Embassy(models.Model):
 	def __str__(self):
 		return self.name
 		
+	def clean(self):
+		if self.government == self.location:
+			raise ValidationError(
+				_('An embassy cannot have the same government and location.'))
+		
 	class Meta:
 		verbose_name = 'Embassy'
 		verbose_name_plural = 'Embassies'
