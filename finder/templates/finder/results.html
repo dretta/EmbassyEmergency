@@ -1,3 +1,7 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'finder/style.css' %}" />
+
 {% if embassies %}
 	<h2>Here are the embassies sent by 
 		<a href="{% url 'finder:country_info' government.code %}">{{government}}</a>, located in 
