@@ -3,7 +3,8 @@ from django.contrib import admin
 from .models import Country, Embassy
 
 class CountryAdmin(admin.ModelAdmin):
-    fields = ['name', 'code']
+	fields = ['name', 'code']
+	search_fields = ['name']
 	
 class EmbassyAdmin(admin.ModelAdmin):
 	fieldsets = [
