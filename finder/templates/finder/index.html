@@ -2,10 +2,14 @@
 
 
 {% block content %}
-<!--
+	<div class="welcome">
+		<h1>Welcome to EmbassyEmergency</h1>
+		<p class="lead">You can use this site to find Embassies based on their Country's origin and location.<br> You can also find all Embassies sent by or located in that Country.</p>
+	</div>
+
 	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-	<form action="{% url 'finder:search' %}" method="POST">
+	<form action="{% url 'finder:search' %}" method="POST" class="search">
 		{% csrf_token %}
 		<label>Find Embassies sent by</label>
 		<select name="government">
@@ -21,5 +25,5 @@
 		</select>
 		<input type="submit" value="Search" />
 	</form>
--->
+
 {% endblock %}

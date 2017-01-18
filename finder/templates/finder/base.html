@@ -33,7 +33,7 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="{% static "css/starter-template.css" %}" rel="stylesheet">
+    <link href="{% static "css/index.css" %}" rel="stylesheet">
     <link href="{% static "css/sticky-footer-navbar.css" %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -46,7 +46,6 @@
   <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-		::before
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -65,24 +64,20 @@
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
-		::after
 	</nav>
 
     <div class="container">
-
-      <div class="starter-template">
-        <h1>Welcome to EmbassyEmergency</h1>
-        <p class="lead">You can use this site to find Embassies based on their Country's origin and location.<br> You can also find all Embassies sent by or located in that Country.</p>
-      </div>
-
+	{% block content %}
+	{% endblock %}
     </div><!-- /.container -->
 	
 	<footer class="footer">
       <div class="container">
 		<nav class="links">
-			<p class="text-muted">Place sticky footer content here.</p>
-			<a href="#" class="link">About</a>
-			<a href="#" class="link">Contact</a>
+			<ul>
+				<li><a href="#" class="link">About</a></li>
+				<li><a href="#" class="link">Contact</a></li>
+			</ul>
 		</nav>
       </div>
     </footer>
