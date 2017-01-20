@@ -14,3 +14,7 @@ form {
 .col{
     display: inline-block;
 }
+
+.form-control{
+	padding: 0;
+}

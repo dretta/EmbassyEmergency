@@ -9,17 +9,19 @@
 
 	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form method="POST" class="dropdownForms">
-  <div class="row">
+<form method="POST" action="{% url 'finder:search' %}" class="form">
+	{% csrf_token %}
+	<div class="row">
     <div class="col">
       <div class="form-group">
 		<div class="col">
-			<label for="sel1">Choose 1st option</label>
+			<label for="sel1">Find Embassies sent by</label>
 		</div>
 		<div class="col">
-			<select class="form-control" id="sel1">
-				<option>1st dropdown</option>
-				<!-- more options here-->
+			<select class="form-control" name="government">
+				{% for entry in countries %}
+					<option value="{{ entry.code }}">{{ entry.name }}</option>
+				{% endfor %}
 			</select>
 		</div>
       </div>
@@ -27,18 +29,19 @@
     <div class="col">
 		<div class="form-group">
 			<div class="col">
-			<label for="sel1">Choose 2nd option</label>
+			<label for="sel1">that are located in</label>
 			</div>
 			<div class="col">
-				<select class="form-control" id="sel1">
-					<option>2nd dropdown</option>
-					<!-- more options here -->
+				<select class="form-control" name="location">
+					{% for entry in countries %}
+						<option value="{{ entry.code }}">{{ entry.name }}</option>
+					{% endfor %}
 				</select>
 			</div>
       </div>
     </div>
     <div class="col">
-      <button class="btn btn-xs btn-default">Send</button>
+      <button type="submit" value="Search" class="btn btn-xs btn-default">Send</button>
     </div>
   </div>
 </form>
