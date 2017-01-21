@@ -1,5 +1,8 @@
-{% load static %}
+{% extends "finder/base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'finder/style.css' %}" />
+
+{% block content %}
+
 
 <p>You're looking at the Embassy {{ embassy }}.</p>
+{% endblock %}

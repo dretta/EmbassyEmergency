@@ -32,7 +32,7 @@ body {
 	display: inline;
 }
 
-.footer .container  .links  .text-muted, a {
+.footer .container  .links  .text-muted, .footer .container  .links  .link {
 	color: white
 }
 

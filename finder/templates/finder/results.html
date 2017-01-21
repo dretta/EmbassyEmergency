@@ -1,6 +1,7 @@
-{% load static %}
+{% extends "finder/base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'finder/style.css' %}" />
+
+{% block content %}
 
 {% if embassies %}
 	<h2>Here are the embassies sent by 
@@ -18,3 +19,4 @@
 		<a href="{% url 'finder:country_info' location.code %}">{{location}}</a>
 	</p>
 {% endif %}
+{% endblock %}
