@@ -1,14 +1,15 @@
 body {
-	padding-top: 50px;
+	margin-top: 50px;
 }
 .welcome {
-	padding: 40px 15px;
+	padding: 40px 15px 20px;
 	text-align: center;
 }
 
-form {
+.form {
     width: 100%;
     text-align: center;
+	padding: 20px 15px 40px;
 }
 .row,
 .col{
