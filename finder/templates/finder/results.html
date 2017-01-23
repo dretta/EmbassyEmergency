@@ -14,9 +14,9 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>There are no embassies sent by 
+    <h2>There are no embassies sent by 
 		<a href="{% url 'finder:country_info' government.code %}">{{government}}</a> and located in 
 		<a href="{% url 'finder:country_info' location.code %}">{{location}}</a>
-	</p>
+	</h2>
 {% endif %}
 {% endblock %}
