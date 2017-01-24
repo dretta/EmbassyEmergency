@@ -6,20 +6,29 @@ from django.urls import reverse
 from django.views import generic
 
 class IndexView(generic.base.TemplateView):
-    template_name = "finder/index.html"
+	template_name = "finder/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['countries'] = Country.objects.all()
-        return context
+	def get_context_data(self, **kwargs):
+		context = super(IndexView, self).get_context_data(**kwargs)
+		context['countries'] = Country.objects.all()
+		return context
 	
 class EmbassyView(generic.DetailView):
-    model = Embassy
-    template_name = 'finder/embassy_info.html'
+	model = Embassy
+	template_name = 'finder/embassy_info.html'
 
 class CountryView(generic.DetailView):
-    model = Country
-    template_name = 'finder/country_info.html'
+	model = Country
+	template_name = 'finder/country_info.html'
+	
+	#def get_object(self):
+	#	return super(CountryView, self).get_object()
+	
+	def get_context_data(self, **kwargs):
+		context = super(CountryView, self).get_context_data(**kwargs)
+		context['governments'] = Embassy.objects.select_related().filter(government=self.get_object().code)
+		context['locations'] = Embassy.objects.select_related().filter(location=self.get_object().code)
+		return context
 
 def results(request, government_code, location_code):
 	government = Country.objects.get(code=government_code)

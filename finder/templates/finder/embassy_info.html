@@ -3,6 +3,10 @@
 
 {% block content %}
 
+<h2 class="title">You're looking at the Embassy {{ embassy }}.<h2>
 
-<p class="lead">You're looking at the Embassy {{ embassy }}.</p>
+<h4 class="title">This Embassy was sent from 
+	<a href="{% url 'finder:country_info' embassy.government.code %}">{{ embassy.government }}</a> 
+	to <a href="{% url 'finder:country_info' embassy.location.code %}">{{ embassy.location }}</a>
+</h4>
 {% endblock %}

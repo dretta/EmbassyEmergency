@@ -3,5 +3,28 @@
 
 {% block content %}
 
-<p class="lead">You're looking at the Country {{ country }}.</p>
+	<h2 class="title">You're looking at the Country {{ country }}.</h2>
+
+	{% if governments %}
+		<h4 class="title">The Embassies sent by {{ country }} are:</h4>
+		<ul>
+			{% for government in governments %}
+				<li><a href="{% url 'finder:embassy_info' government.id %}">{{ government }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<h4 class="title">There are no Embassies sent by {{ country }}</h4>
+	{% endif %}
+	
+	{% if locations %}
+		<h4 class="title">The Embassies stationed in {{ country }} are:</h4>
+		<ul>
+			{% for location in locations %}
+				<li><a href="{% url 'finder:embassy_info' location.id %}">{{ location }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<h4 class="title">There are no Embassies in {{ country }}</h4>
+	{% endif %}
+	
 {% endblock %}
