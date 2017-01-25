@@ -5,8 +5,31 @@
 
 <h2 class="title">You're looking at the Embassy {{ embassy }}.<h2>
 
-<h4 class="title">This Embassy was sent from 
+<h3 class="title">This Embassy was sent from 
 	<a href="{% url 'finder:country_info' embassy.government.code %}">{{ embassy.government }}</a> 
 	to <a href="{% url 'finder:country_info' embassy.location.code %}">{{ embassy.location }}</a>
 </h4>
+
+
+	<h4>City:</h4>
+	<p>{{ embassy.city }}</p>
+	<h4>Address:</h4>
+	<p>{{ embassy.street_address }}</p>
+	<h4>Phone Number:</h4>
+	<p>{{ embassy.phone_number }}</p>
+{% if embassy.fax_number %}
+		<h4>Fax Number:</h4>
+		<p>{{ embassy.fax_number }}</p>
+{% endif %}
+{% if embassy.email_address %}
+		<h4>Email Address:</h4>
+		<p>{{ embassy.email_address }}</p>
+{% endif %}
+{% if embassy.website %}
+		<h4>Website:</h4>
+		<p>{{ embassy.website }}</p>
+{% endif %}
+
+
+
 {% endblock %}
