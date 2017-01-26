@@ -12,6 +12,14 @@ class IndexView(generic.base.TemplateView):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		context['countries'] = Country.objects.all()
 		return context
+		
+class EmbassyListView(generic.ListView):
+	model = Embassy
+	template_name = "finder/embassy_list.html"
+	
+class CountryListView(generic.ListView):
+	model = Country
+	template_name = "finder/country_list.html"	
 	
 class EmbassyView(generic.DetailView):
 	model = Embassy
@@ -20,9 +28,6 @@ class EmbassyView(generic.DetailView):
 class CountryView(generic.DetailView):
 	model = Country
 	template_name = 'finder/country_info.html'
-	
-	#def get_object(self):
-	#	return super(CountryView, self).get_object()
 	
 	def get_context_data(self, **kwargs):
 		context = super(CountryView, self).get_context_data(**kwargs)

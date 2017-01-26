@@ -1,0 +1,14 @@
+{% extends "finder/base.html" %}
+
+{% block content %}
+
+	<h2 class="title" >Available Embassies:</h2>
+	<ul>
+		{% for embassy in object_list %}
+			<li><a href="{% url 'finder:embassy_info' embassy.id %}">{{ embassy }}</a></li>
+		{% empty %}
+			<li>Where did the embassies go?</li>
+		{% endfor %}
+	</ul>
+
+{% endblock %}
