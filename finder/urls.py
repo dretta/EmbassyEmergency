@@ -6,6 +6,10 @@ app_name = 'finder'
 urlpatterns = [
 	# ex: / or /finder/
 	url(r'^$', views.IndexView.as_view(), name='index'),
+	# ex: /finder/about/
+	url(r'^about/$', views.AboutView.as_view(), name='about'),
+	# ex: /finder/contact/
+	url(r'^contact/$', views.ContactView.as_view(), name='contact'),
 	# ex: /finder/embassy/
 	url(r'^embassy/', views.EmbassyListView.as_view(), name='embassy_list'),
 	# ex: /finder/country/

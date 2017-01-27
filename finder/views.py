@@ -34,6 +34,12 @@ class CountryView(generic.DetailView):
 		context['governments'] = Embassy.objects.select_related().filter(government=self.get_object().code)
 		context['locations'] = Embassy.objects.select_related().filter(location=self.get_object().code)
 		return context
+		
+class AboutView(generic.base.TemplateView):
+	template_name = "finder/about.html"
+	
+class ContactView(generic.base.TemplateView):
+	template_name = "finder/contact.html"
 
 def results(request, government_code, location_code):
 	government = Country.objects.get(code=government_code)

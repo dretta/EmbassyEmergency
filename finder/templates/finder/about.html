@@ -1,0 +1,21 @@
+{% extends "finder/base.html" %}
+
+{% block content %}
+
+<h2 class="title">About</h2>
+
+<p class="text">
+	EmbassyEmergency is an minimalist app that allows you to find Embassies all over the world. 
+	You can either search for a specific Embassy based on it's government of origin
+	and destination country, or browse through the countries and see what dipolmatic
+	missions they have sent out.
+	<br><br>
+	EmbassyEmergency is built using Django, Bootstrap, and PostgresSQL. Click 
+	<a href="https://github.com/dretta/EmbassyEmergency">here</a> 
+	to view the source code. Daniel Retta is the sole Developer of EmbassyEmergency,
+	visit the 
+	<a href="{% url 'finder:contact' %}">Contact</a>
+	page if you wish to reach him.
+</p>
+
+{% endblock %}
