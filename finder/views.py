@@ -4,6 +4,9 @@ from .models import Country, Embassy
 from django.template import loader
 from django.urls import reverse
 from django.views import generic
+import requests
+from .forms import SubmitEmbed
+from .serializer import EmbedSerializer
 
 class IndexView(generic.base.TemplateView):
 	template_name = "finder/index.html"
@@ -71,3 +74,22 @@ def search(request):
 			# with POST data. This prevents data from being posted twice if a
 			# user hits the Back button.
 			return HttpResponseRedirect(reverse('finder:results', args=(selected_government.code,selected_location.code,)))
+			
+			
+
+def save(request):
+
+    if request.method == "POST":
+        form = Submit(request.POST)
+        if form.is_valid():
+            url = form.cleaned_data['url']
+            r = requests.get('http://api06.dev.openstreetmap.org/')
+            json = r.json()
+            serializer = EmbedSerializer(data=json)
+            if serializer.is_valid():
+                embed = serializer.save()
+                return render(request, 'embeds.html', {'embed': embed})
+    else:
+        form = SubmitEmbed()
+
+    return render(request, 'index.html', {'form': form})
