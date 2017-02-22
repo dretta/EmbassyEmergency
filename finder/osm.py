@@ -6,5 +6,7 @@ def getEmbassies():
 	api = overpy.Overpass()
 	# fetch all ways and nodes
 	result = api.query("""
-		[out:csv("name:en")];relation["admin_level"="2"];(._;>;);out body;
+		[out:json];(node["amenity"="embassy"];way["amenity"="embassy"];relation["amenity"="embassy"]);out tags;
 		""")
+		
+	return result
