@@ -33,4 +33,15 @@ def getEmbassies():
 out tags;  
 		""")
 	
+	for l in ['ways', 'nodes', 'relations']:
+		element = getattr(result, l)
+		for e in element:
+			embassy = e.tags
+			print("{},{},{},{},{},{}".format(embassy['name'].encode("utf-8"),
+				embassy['country'].encode("utf-8"),
+				embassy['target'].encode("utf-8"),
+				embassy['addr:street'].encode("utf-8"),
+				embassy['addr:city'].encode("utf-8"),
+				embassy['contact:phone'].encode("utf-8")))
+	
 	return result
