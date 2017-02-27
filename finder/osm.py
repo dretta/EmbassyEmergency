@@ -1,11 +1,15 @@
 import overpy
+import json
+import time
 
 
-
-def getEmbassies(): 
+def runQuery(attempts): 
 	api = overpy.Overpass()
+	api.max_retry_count = 3
 	# fetch all ways and nodes
-	result = api.query("""
+	result = None
+	try:
+		result = api.query("""
 [out:json];
 (
 	(
@@ -31,10 +35,25 @@ def getEmbassies():
 	);
 );
 out tags;  
-		""")
+			""")
+	except json.decoder.JSONDecodeError as e: 
+		if attempts > 0:
+			print("Query failed, {} number of attempt(s) left".format(attempts-1))
+			time.sleep(60)
+			runQuery(attempts-1)
+		else:
+			raise e
+
+		
 	
+	return result
+	
+def getEmbassies():
+
+	embassies = runQuery(3)
+
 	for l in ['ways', 'nodes', 'relations']:
-		element = getattr(result, l)
+		element = getattr(embassies, l)
 		for e in element:
 			embassy = e.tags
 			print("{},{},{},{},{},{}".format(embassy['name'].encode("utf-8"),
@@ -44,4 +63,4 @@ out tags;
 				embassy['addr:city'].encode("utf-8"),
 				embassy['contact:phone'].encode("utf-8")))
 	
-	return result
+	return embassies
