@@ -35,15 +35,15 @@ def runQuery(attempts):
 	);
 );
 out tags;  
-			""")
+			""")#except overpy.exception.OverpassTooManyRequests as e:
 	except json.decoder.JSONDecodeError as e: 
 		if attempts > 0:
 			print("Query failed, {} number of attempt(s) left".format(attempts-1))
 			time.sleep(60)
-			runQuery(attempts-1)
+			return runQuery(attempts-1)
 		else:
 			raise e
-
+	
 		
 	
 	return result
@@ -56,11 +56,23 @@ def getEmbassies():
 		element = getattr(embassies, l)
 		for e in element:
 			embassy = e.tags
-			print("{},{},{},{},{},{}".format(embassy['name'].encode("utf-8"),
-				embassy['country'].encode("utf-8"),
-				embassy['target'].encode("utf-8"),
-				embassy['addr:street'].encode("utf-8"),
-				embassy['addr:city'].encode("utf-8"),
-				embassy['contact:phone'].encode("utf-8")))
+			name = embassy['name']
+			country = embassy['country']
+			target = embassy['target']
+			street = embassy['addr:street']
+			city = embassy['addr:city']
+			phone = embassy['contact:phone']
+			data = ", ".join([name,country,target,street,city,phone])
+			fax = embassy.get('contact:fax')
+			if fax:
+				data += ", " + fax
+			email = embassy.get('contact:email')
+			if email:
+				data += ", " + email
+			website = embassy.get('contact:website')
+			if website:
+				data += ", " + website
+			
+			print(data.encode("utf-8"))
 	
 	return embassies
