@@ -1,6 +1,11 @@
 import overpy
 import json
 import time
+from .models import Country, Embassy
+import requests
+import xml.etree.ElementTree 
+
+
 
 
 def runQuery(attempts): 
@@ -74,5 +79,14 @@ def getEmbassies():
 				data += ", " + website
 			
 			print(data.encode("utf-8"))
+			countryObj, embassyObj = None
+			try:
+				countryObj = Country.objects.get(pk=country)
+			except Country.DoesNotExist:
+				resp = requests.get('http://api.worldbank.org/countries/{}'.format(country))
+				root = xml.etree.ElementTree.fromstring(resp.content)
+				countryName = root.find("{http://www.worldbank.org}country")[1].text 
+				countryObj = Country(code=country,name=countryName)
+				countryObj.save()
 	
 	return embassies
