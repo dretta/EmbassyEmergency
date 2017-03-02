@@ -40,7 +40,10 @@ def runQuery(attempts):
 	);
 );
 out tags;  
-			""")#except overpy.exception.OverpassTooManyRequests as e:
+			""")
+	except overpy.exception.OverpassTooManyRequests as e:
+		time.sleep(60)
+		return runQuery(attempts)
 	except json.decoder.JSONDecodeError as e: 
 		if attempts > 0:
 			print("Query failed, {} number of attempt(s) left".format(attempts-1))
@@ -53,9 +56,21 @@ out tags;
 	
 	return result
 	
+def getCountryObj(country):
+	try:
+		countryObj = Country.objects.get(pk=country)
+	except Country.DoesNotExist:
+		resp = requests.get('http://api.worldbank.org/countries/{}'.format(country))
+		root = xml.etree.ElementTree.fromstring(resp.content)
+		countryName = root.find("{http://www.worldbank.org}country")[1].text 
+		countryObj = Country(code=country,name=countryName)
+		countryObj.save()
+	
 def getEmbassies():
 
 	embassies = runQuery(3)
+	
+	Embassy.objects.all().delete()
 
 	for l in ['ways', 'nodes', 'relations']:
 		element = getattr(embassies, l)
@@ -79,14 +94,14 @@ def getEmbassies():
 				data += ", " + website
 			
 			print(data.encode("utf-8"))
-			countryObj, embassyObj = None
 			try:
-				countryObj = Country.objects.get(pk=country)
-			except Country.DoesNotExist:
-				resp = requests.get('http://api.worldbank.org/countries/{}'.format(country))
-				root = xml.etree.ElementTree.fromstring(resp.content)
-				countryName = root.find("{http://www.worldbank.org}country")[1].text 
-				countryObj = Country(code=country,name=countryName)
-				countryObj.save()
+				countryObj = getCountryObj(country)
+				targetObj = getCountryObj(target)
+			except requests.RequestException as e:
+				raise e
+			else:
+				embassyObj = Embassy(government=countryObj, location=targetObj, name=name, street_address=street, 
+					city=city, phone_number=phone, fax_number=fax, email_address=email, website=website)
+				embassyObj.save()
 	
 	return embassies

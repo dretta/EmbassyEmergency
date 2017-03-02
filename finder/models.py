@@ -53,8 +53,11 @@ class Embassy(models.Model):
 	name = models.CharField(max_length=200, db_column="Name", validators=[validate_nonempty])
 	street_address = models.CharField(max_length=200, db_column="Address")
 	city = models.CharField(max_length=50, db_column="City")
+	
+	# TODO: Change phone and fax number into phone number fields
 	phone_number = models.IntegerField(default=-1, db_column="Phone Number")
 	fax_number = models.IntegerField(null=True, blank=True, db_column="Fax Number")
+	
 	email_address = models.CharField(null=True, blank=True, max_length=200, db_column="Email")
 	website = models.CharField(null=True, blank=True, max_length=200, db_column="Link")
 
