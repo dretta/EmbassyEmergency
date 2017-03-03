@@ -8,13 +8,11 @@ import xml.etree.ElementTree
 
 
 
-def runQuery(attempts): 
+def runQuery(): 
 	api = overpy.Overpass()
 	api.max_retry_count = 3
 	# fetch all ways and nodes
-	result = None
-	try:
-		result = api.query("""
+	result = api.query("""
 [out:json];
 (
 	(
@@ -40,21 +38,32 @@ def runQuery(attempts):
 	);
 );
 out tags;  
-			""")
-	except overpy.exception.OverpassTooManyRequests as e:
-		time.sleep(60)
-		return runQuery(attempts)
-	except json.decoder.JSONDecodeError as e: 
-		if attempts > 0:
-			print("Query failed, {} number of attempt(s) left".format(attempts-1))
-			time.sleep(60)
-			return runQuery(attempts-1)
-		else:
-			raise e
+		""")
+
 	
 		
 	
 	return result
+	
+def queryAttempts(attempts=3):
+	while attempts > 0:
+		try:
+			queryResult = runQuery()
+			break
+		except overpy.exception.OverpassTooManyRequests as e:
+			time.sleep(60)
+		except json.decoder.JSONDecodeError as e: 
+			attempts -= 1
+			print("Query failed, {} number of attempt(s) left".format(attempts))
+			time.sleep(60)
+			
+			
+	if attempts == 0:
+		raise e
+	else:
+		return queryResult
+		
+	
 	
 def getCountryObj(country):
 	try:
@@ -68,7 +77,7 @@ def getCountryObj(country):
 	
 def getEmbassies():
 
-	embassies = runQuery(3)
+	embassies = queryAttempts()
 	
 	Embassy.objects.all().delete()
 
@@ -82,8 +91,10 @@ def getEmbassies():
 			street = embassy['addr:street']
 			city = embassy['addr:city']
 			phone = embassy['contact:phone']
+			phone = "0"
 			data = ", ".join([name,country,target,street,city,phone])
 			fax = embassy.get('contact:fax')
+			fax = "1"
 			if fax:
 				data += ", " + fax
 			email = embassy.get('contact:email')

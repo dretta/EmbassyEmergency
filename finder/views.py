@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.views import generic
 import requests
 from .forms import SubmitEmbed
-from .serializer import EmbedSerializer
 
 class IndexView(generic.base.TemplateView):
 	template_name = "finder/index.html"

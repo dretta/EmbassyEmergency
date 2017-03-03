@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 def validate_nonempty(value):
 	if value == "":
@@ -54,9 +55,8 @@ class Embassy(models.Model):
 	street_address = models.CharField(max_length=200, db_column="Address")
 	city = models.CharField(max_length=50, db_column="City")
 	
-	# TODO: Change phone and fax number into phone number fields
-	phone_number = models.IntegerField(default=-1, db_column="Phone Number")
-	fax_number = models.IntegerField(null=True, blank=True, db_column="Fax Number")
+	phone_number = PhoneNumberField(default=-1, db_column="Phone Number")
+	fax_number = PhoneNumberField(null=True, blank=True, db_column="Fax Number")
 	
 	email_address = models.CharField(null=True, blank=True, max_length=200, db_column="Email")
 	website = models.CharField(null=True, blank=True, max_length=200, db_column="Link")
