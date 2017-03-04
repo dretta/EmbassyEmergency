@@ -74,6 +74,7 @@ def getCountryObj(country):
 		countryName = root.find("{http://www.worldbank.org}country")[1].text 
 		countryObj = Country(code=country,name=countryName)
 		countryObj.save()
+	return countryObj
 	
 def getEmbassies():
 
@@ -106,12 +107,14 @@ def getEmbassies():
 			
 			print(data.encode("utf-8"))
 			try:
-				countryObj = getCountryObj(country)
+				govObj = getCountryObj(country)
 				targetObj = getCountryObj(target)
 			except requests.RequestException as e:
 				raise e
 			else:
-				embassyObj = Embassy(government=countryObj, location=targetObj, name=name, street_address=street, 
+				assert govObj
+				assert targetObj
+				embassyObj = Embassy(government=govObj, location=targetObj, name=name, street_address=street, 
 					city=city, phone_number=phone, fax_number=fax, email_address=email, website=website)
 				embassyObj.save()
 	
