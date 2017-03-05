@@ -92,10 +92,8 @@ def getEmbassies():
 			street = embassy['addr:street']
 			city = embassy['addr:city']
 			phone = embassy['contact:phone']
-			phone = "0"
 			data = ", ".join([name,country,target,street,city,phone])
 			fax = embassy.get('contact:fax')
-			fax = "1"
 			if fax:
 				data += ", " + fax
 			email = embassy.get('contact:email')
