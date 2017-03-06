@@ -76,7 +76,7 @@ def getCountryObj(country):
 		countryObj.save()
 	return countryObj
 	
-def getEmbassies():
+def getEmbassies(printOut=False):
 
 	embassies = queryAttempts()
 	
@@ -103,7 +103,9 @@ def getEmbassies():
 			if website:
 				data += ", " + website
 			
-			print(data.encode("utf-8"))
+			if printOut:
+				print(data.encode("utf-8"))
+			
 			try:
 				govObj = getCountryObj(country)
 				targetObj = getCountryObj(target)
