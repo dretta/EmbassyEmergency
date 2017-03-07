@@ -45,7 +45,7 @@ out tags;
 	
 	return result
 	
-def queryAttempts(attempts=3):
+def queryAttempts(attempts=100):
 	while attempts > 0:
 		try:
 			queryResult = runQuery()
@@ -56,6 +56,9 @@ def queryAttempts(attempts=3):
 			attempts -= 1
 			print("Query failed, {} number of attempt(s) left".format(attempts))
 			time.sleep(60)
+		except overpy.exception.OverpassGatewayTimeout:
+			print("Server is over-loaded, will not update database")
+			return None
 			
 			
 	if attempts == 0:
@@ -79,6 +82,8 @@ def getCountryObj(country):
 def getEmbassies(printOut=False):
 
 	embassies = queryAttempts()
+	if embassies == None:
+		return
 	
 	Embassy.objects.all().delete()
 
@@ -111,6 +116,8 @@ def getEmbassies(printOut=False):
 				targetObj = getCountryObj(target)
 			except requests.RequestException as e:
 				raise e
+			except
+			
 			else:
 				assert govObj
 				assert targetObj
