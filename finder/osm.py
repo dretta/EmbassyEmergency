@@ -116,7 +116,6 @@ def getEmbassies(printOut=False):
 				targetObj = getCountryObj(target)
 			except requests.RequestException as e:
 				raise e
-			except
 			
 			else:
 				assert govObj
