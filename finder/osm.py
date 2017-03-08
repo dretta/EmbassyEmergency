@@ -59,6 +59,9 @@ def queryAttempts(attempts=100):
 		except overpy.exception.OverpassGatewayTimeout:
 			print("Server is over-loaded, will not update database")
 			return None
+		except overpy.exception.OverpassUnknownHTTPStatusCode:
+			print("Unknown Overpy Error, will not update database")
+			return None
 			
 			
 	if attempts == 0:

@@ -16,7 +16,7 @@ def validate_string_length_three(value):
 			_('%(value)s is not a string'),
 			params={'value': value},
 		)
-	elif len(value) != 3:
+	elif len(value) != 2:
 		raise ValidationError(
 			_('%(value)s is not a string size 3'),
 			params={'value': value},
@@ -37,7 +37,7 @@ def validate_string_all_caps(value):
 
 class Country(models.Model):
 
-	code = models.CharField(primary_key=True, max_length=3, validators=[validate_nonempty, validate_string_length_three, validate_string_all_caps]) #ISO Alpha-3 Country Code
+	code = models.CharField(primary_key=True, max_length=2, validators=[validate_nonempty, validate_string_length_three, validate_string_all_caps]) #ISO Alpha-3 Country Code
 	name = models.CharField(max_length=50, db_column="Name", validators=[validate_nonempty])
 
 	def __str__(self):
