@@ -2,6 +2,9 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+
 
 def validate_nonempty(value):
 	if value == "":
@@ -68,16 +71,27 @@ class Embassy(AutoUpdateModel):
 	email_address = models.CharField(null=True, blank=True, max_length=200, db_column="Email")
 	website = models.CharField(null=True, blank=True, max_length=200, db_column="Link")
 	
-	#autoUpdate = models.BooleanField(default=True, db_column="Will Update via Query?")
-
-	def __str__(self):
-		return self.name
+	@receiver(pre_save)
+	def pre_save_handler(sender, instance, *args, **kwargs):
+		instance.clean()
 		
 	def clean(self):
 		if self.government == self.location:
 			raise ValidationError(
 				_('An embassy cannot have the same government and location.'))
+		if not self.autoUpdate:
+			self.government.autoUpdate = False
+			self.government.save()
+			self.location.autoUpdate = False
+			self.location.save()
+			
+		
+	def __str__(self):
+		return self.name
 		
 	class Meta:
 		verbose_name = 'Embassy'
 		verbose_name_plural = 'Embassies'
+		
+
+
