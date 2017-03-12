@@ -19,7 +19,7 @@ urlpatterns = [
 	# ex: /finder/ABC/
 	url(r'^(?P<pk>[A-Z]{2})/$', views.CountryView.as_view(), name='country_info'),
 	# ex: /finder/find/ABC/DEF/
-	url(r'^find/(?P<government_code>[A-Z]{3})/(?P<location_code>[A-Z]{3})/$', views.results, name='results'),
+	url(r'^find/(?P<government_code>[A-Z]{2})/(?P<location_code>[A-Z]{2})/$', views.results, name='results'),
 	# ex: /finder/find/ABC/DEF/
 	url(r'^search/', views.search, name='search'),
 ]
