@@ -22,6 +22,14 @@ class EmbassyListView(generic.ListView):
 class CountryListView(generic.ListView):
 	model = Country
 	template_name = "finder/country_list.html"	
+
+class EmbassyEditView(generic.DetailView):
+	model = Embassy
+	template_name = 'finder/embassy_edit.html'
+
+class CountryEditView(generic.DetailView):
+	model = Country
+	template_name = 'finder/country_edit.html'	
 	
 class EmbassyView(generic.DetailView):
 	model = Embassy
