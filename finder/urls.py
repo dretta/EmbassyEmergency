@@ -16,14 +16,18 @@ urlpatterns = [
 	url(r'^country/', views.CountryListView.as_view(), name='country_list'),
 	# ex: /finder/5/edit
 	url(r'^(?P<pk>[0-9]+)/edit/$', views.EmbassyEditView.as_view(), name='embassy_edit'),
-	# ex: /finder/ABC/edit
+	# ex: /finder/AB/edit
 	url(r'^(?P<pk>[A-Z]{2})/edit/$', views.CountryEditView.as_view(), name='country_edit'),
+	# Called by EmbassyUpdate Form
+	url(r'^(?P<pk>[0-9]+)/update/$', views.EmbassyUpdate, name='EmbassyUpdate'),
+	# Called by CountryUpdate Form
+	url(r'^(?P<code>[A-Z]{2})/update/$', views.CountryUpdate, name='CountryUpdate'),
 	# ex: /finder/5/
 	url(r'^(?P<pk>[0-9]+)/$', views.EmbassyView.as_view(), name='embassy_info'),
-	# ex: /finder/ABC/
+	# ex: /finder/AB/
 	url(r'^(?P<pk>[A-Z]{2})/$', views.CountryView.as_view(), name='country_info'),
-	# ex: /finder/find/ABC/DEF/
+	# ex: /finder/find/AB/CD/
 	url(r'^find/(?P<government_code>[A-Z]{2})/(?P<location_code>[A-Z]{2})/$', views.results, name='results'),
-	# Not called by link
+	# Called by Search Form 
 	url(r'^search/', views.search, name='search'),
 ]

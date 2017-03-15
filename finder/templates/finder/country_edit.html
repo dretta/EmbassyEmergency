@@ -5,4 +5,11 @@
 
 	<h2 class="title">Rename the Country {{ country }}?</h2>
 	
+	<form action="{% url 'finder:CountryUpdate' country.code %}" method="post">
+		{% csrf_token %}
+		<label for="your_name">Country name: </label>
+		<input id="your_name" type="text" name="name" value="{{ country }}">
+		<input type="submit" value="Save">
+	</form>
+	
 {% endblock %}
