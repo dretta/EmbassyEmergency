@@ -22,13 +22,15 @@ class CountryListView(generic.ListView):
 	model = Country
 	template_name = "finder/country_list.html"	
 
-class EmbassyEditView(generic.DetailView):
+class EmbassyEditView(generic.edit.UpdateView):
 	model = Embassy
-	template_name = 'finder/embassy_edit.html'
+	fields = ['edit']
+	template_name_suffix = '_edit'
 
-class CountryEditView(generic.DetailView):
+class CountryEditView(generic.edit.UpdateView):
 	model = Country
-	template_name = 'finder/country_edit.html'	
+	fields = ['name']
+	template_name_suffix = '_edit'	
 	
 class EmbassyView(generic.DetailView):
 	model = Embassy
@@ -83,11 +85,3 @@ def search(request):
 
 def EmbassyUpdate():
 	pass
-	
-def CountryUpdate(request, code):
-	if request.method == 'POST':
-		country = get_object_or_404(Country, code=code)
-		country.name = request.POST['name']
-		country.save()
-
-	return HttpResponseRedirect(reverse('finder:country_info', args=(country.code,)))

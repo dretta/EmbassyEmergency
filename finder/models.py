@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
+from django.urls import reverse
 
 
 def validate_nonempty(value):
@@ -49,6 +50,9 @@ class Country(AutoUpdateModel):
 
 	code = models.CharField(primary_key=True, max_length=2, validators=[validate_nonempty, validate_string_length_three, validate_string_all_caps]) #ISO Alpha-3 Country Code
 	name = models.CharField(max_length=50, db_column="Name", validators=[validate_nonempty])
+	
+	def get_absolute_url(self):
+		return reverse('finder:country_info', args=(self.code,))
 	
 	@receiver(pre_save)
 	def pre_save_handler(sender, instance, *args, **kwargs):
