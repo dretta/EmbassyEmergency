@@ -87,6 +87,9 @@ class Embassy(AutoUpdateModel):
 	email_address = models.CharField(null=True, blank=True, max_length=200, db_column="Email")
 	website = models.CharField(null=True, blank=True, max_length=200, db_column="Link")
 	
+	def get_absolute_url(self):
+		return reverse('finder:embassy_info', args=(self.id,))
+	
 	@receiver(pre_save)
 	def pre_save_handler(sender, instance, *args, **kwargs):
 		instance.clean()

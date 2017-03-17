@@ -24,7 +24,7 @@ class CountryListView(generic.ListView):
 
 class EmbassyEditView(generic.edit.UpdateView):
 	model = Embassy
-	fields = ['edit']
+	fields = ['name', 'street_address', 'city', 'phone_number', 'fax_number', 'email_address', 'website']
 	template_name_suffix = '_edit'
 
 class CountryEditView(generic.edit.UpdateView):
@@ -82,6 +82,3 @@ def search(request):
 			# with POST data. This prevents data from being posted twice if a
 			# user hits the Back button.
 			return HttpResponseRedirect(reverse('finder:results', args=(selected_government.code,selected_location.code,)))
-
-def EmbassyUpdate():
-	pass
