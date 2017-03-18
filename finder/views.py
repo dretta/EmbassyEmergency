@@ -26,6 +26,14 @@ class EmbassyEditView(generic.edit.UpdateView):
 	model = Embassy
 	fields = ['name', 'street_address', 'city', 'phone_number', 'fax_number', 'email_address', 'website']
 	template_name_suffix = '_edit'
+	
+	def post(self, request, *args, **kwargs):
+		print(self)
+		if "cancel" in request.POST:
+			object = self.get_object()
+			return redirect(object)
+		else:
+			return super(EmbassyEditView, self).post(request, *args, **kwargs)
 
 class CountryEditView(generic.edit.UpdateView):
 	model = Country
