@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Country, Embassy
 from django.template import loader
@@ -31,6 +31,14 @@ class CountryEditView(generic.edit.UpdateView):
 	model = Country
 	fields = ['name']
 	template_name_suffix = '_edit'	
+	
+	def post(self, request, *args, **kwargs):
+		print(self)
+		if "cancel" in request.POST:
+			object = self.get_object()
+			return redirect(object)
+		else:
+			return super(CountryEditView, self).post(request, *args, **kwargs)
 	
 class EmbassyView(generic.DetailView):
 	model = Embassy
