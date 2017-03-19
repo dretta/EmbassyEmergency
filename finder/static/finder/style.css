@@ -5,3 +5,20 @@
 .text{
 	font-size: 24px
 }
+
+
+.edit-button, .sub-title{
+	display: inline-block
+}
+
+.sub-title{
+	margin: 0
+}
+
+.edit-button{
+	margin-left: 10px
+}
+
+#country_name{
+	display: inline-block
+}
