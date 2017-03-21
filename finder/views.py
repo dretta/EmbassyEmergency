@@ -5,6 +5,8 @@ from django.template import loader
 from django.urls import reverse
 from django.views import generic
 import requests
+from .forms import BootstrapModelForm
+from django.forms import modelform_factory
 
 class IndexView(generic.base.TemplateView):
 	template_name = "finder/index.html"
@@ -27,6 +29,9 @@ class EmbassyEditView(generic.edit.UpdateView):
 	fields = ['name', 'street_address', 'city', 'phone_number', 'fax_number', 'email_address', 'website']
 	template_name_suffix = '_edit'
 	
+	def get_form_class(self):
+		return modelform_factory(self.model, form=BootstrapModelForm, fields=self.fields)
+	
 	def post(self, request, *args, **kwargs):
 		print(self)
 		if "cancel" in request.POST:
@@ -39,6 +44,9 @@ class CountryEditView(generic.edit.UpdateView):
 	model = Country
 	fields = ['name']
 	template_name_suffix = '_edit'	
+	
+	def get_form_class(self):
+		return modelform_factory(self.model, form=BootstrapModelForm, fields=self.fields)
 	
 	def post(self, request, *args, **kwargs):
 		print(self)
