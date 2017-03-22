@@ -2,12 +2,14 @@
 
 {% block content %}
 
-	<h2 class="title" >Available Countries:</h2>
+	<h2 class="title with-button" >Available Countries:</h2>
+	<a class="title-button btn btn-default">Enter a new Country</a>
+	
 	<ul>
 		{% for country in object_list %}
 			<li><a href="{% url 'finder:country_info' country.code %}">{{ country }}</a></li>
 		{% empty %}
-			<li>Where did the countries go?</li>
+			<li>There are no countries listed, click the button above to make one.</li>
 		{% endfor %}
 	</ul>
 

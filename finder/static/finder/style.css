@@ -12,7 +12,7 @@
 }
 
 
-.edit-button, .sub-title{
+.title-button, .with-button{
 	display: inline-block
 }
 
@@ -20,10 +20,6 @@
 	margin: 0
 }
 
-.edit-button{
+.title-button{
 	margin-left: 10px
-}
-
-#country_name{
-	display: inline-block
 }

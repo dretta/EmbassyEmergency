@@ -3,14 +3,15 @@
 
 {% block content %}
 
-<h2 class="title">You're looking at the Embassy {{ embassy }}.</h2>
+<h2 class="title with-button">You're looking at the Embassy {{ embassy }}.</h2>
+<a href="{% url 'finder:embassy_edit' embassy.id %}" class="title-button btn btn-default">Edit</a>
 
 
-	<h3 class="sub-title"> This Embassy was sent from 
-		<a href="{% url 'finder:country_info' embassy.government.code %}">{{ embassy.government }}</a> 
-		to <a href="{% url 'finder:country_info' embassy.location.code %}">{{ embassy.location }}</a>
-	</h3>
-	<a href="{% url 'finder:embassy_edit' embassy.id %}" class="edit-button btn btn-default">Edit</a>
+<h3 class="sub-title"> This Embassy was sent from 
+	<a href="{% url 'finder:country_info' embassy.government.code %}">{{ embassy.government }}</a> 
+	to <a href="{% url 'finder:country_info' embassy.location.code %}">{{ embassy.location }}</a>
+</h3>
+	
 	
 
 

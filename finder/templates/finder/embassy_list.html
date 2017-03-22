@@ -2,12 +2,14 @@
 
 {% block content %}
 
-	<h2 class="title" >Available Embassies:</h2>
+	<h2 class="title with-button" >Available Embassies:</h2>
+	<a class="title-button btn btn-default">Enter a new Embassy</a>
+	
 	<ul>
 		{% for embassy in object_list %}
 			<li><a href="{% url 'finder:embassy_info' embassy.id %}">{{ embassy }}</a></li>
 		{% empty %}
-			<li>Where did the embassies go?</li>
+			<li>There are no embassies listed, click the button above to make one.</li>
 		{% endfor %}
 	</ul>
 
