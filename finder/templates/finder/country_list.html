@@ -3,7 +3,7 @@
 {% block content %}
 
 	<h2 class="title with-button" >Available Countries:</h2>
-	<a class="title-button btn btn-default">Enter a new Country</a>
+	<a href="{% url 'finder:country_create' %}" class="title-button btn btn-default">Enter a new Country</a>
 	
 	<ul>
 		{% for country in object_list %}

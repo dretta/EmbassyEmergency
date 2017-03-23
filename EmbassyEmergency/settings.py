@@ -96,9 +96,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
+# During development? I keep on forgetting my password because of this...
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#    },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },

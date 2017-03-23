@@ -22,7 +22,18 @@ class EmbassyListView(generic.ListView):
 	
 class CountryListView(generic.ListView):
 	model = Country
-	template_name = "finder/country_list.html"	
+	template_name = "finder/country_list.html"
+
+class CountryCreateView(generic.edit.CreateView):
+	model = Country
+	fields = ['code', 'name']
+	template_name_suffix = '_create'
+	
+	def post(self, request, *args, **kwargs):
+		if "cancel" in request.POST:
+			return HttpResponseRedirect(reverse('finder:country_list'))
+		else:
+			return super(CountryCreateView, self).post(request, *args, **kwargs)
 
 class EmbassyEditView(generic.edit.UpdateView):
 	model = Embassy
