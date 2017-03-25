@@ -1,0 +1,15 @@
+{% extends "finder/base.html" %}
+
+
+{% block content %}
+
+	<h2 class="title">Create a new Embassy:</h2>
+	
+	<form action="" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Save" class="btn btn-primary"/>
+		<input type="submit" formnovalidate  name="cancel" value="Cancel" class="btn btn-secondary"/>
+	</form>
+	
+{% endblock %}

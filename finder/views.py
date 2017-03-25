@@ -23,6 +23,21 @@ class EmbassyListView(generic.ListView):
 class CountryListView(generic.ListView):
 	model = Country
 	template_name = "finder/country_list.html"
+	
+class EmbassyCreateView(generic.edit.CreateView):
+	model = Embassy
+	fields = ['government','location','name','street_address','city','phone_number','fax_number','email_address','website']
+	template_name_suffix = '_create'
+	
+	def post(self, request, *args, **kwargs):
+		if "cancel" in request.POST:
+			return HttpResponseRedirect(reverse('finder:embassy_list'))
+		else:
+			#autoUpdate defaults to True, although manually made Embassies should have it as False
+			post = request.POST.copy()
+			post['autoUpdate'] = False
+			request.POST = post
+			return super(EmbassyCreateView, self).post(request, *args, **kwargs)
 
 class CountryCreateView(generic.edit.CreateView):
 	model = Country

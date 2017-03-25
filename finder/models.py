@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from django.dispatch import receiver
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 
 
@@ -81,11 +81,16 @@ class Embassy(AutoUpdateModel):
 	street_address = models.CharField(max_length=200, db_column="Address")
 	city = models.CharField(max_length=50, db_column="City")
 	
-	phone_number = PhoneNumberField(default=-1, db_column="Phone Number")
+	phone_number = PhoneNumberField(db_column="Phone Number")
 	fax_number = PhoneNumberField(null=True, blank=True, db_column="Fax Number")
 	
 	email_address = models.CharField(null=True, blank=True, max_length=200, db_column="Email")
 	website = models.CharField(null=True, blank=True, max_length=200, db_column="Link")
+	
+	@receiver(post_save)
+	def execute_after_save(sender, instance, created, *args, **kwargs):
+		if instance.autoUpdate:
+			self.start = (self.government,self.location,self.name,self.street_address,self.city,self.phone_number,self.fax_number,self.email_address,self.website)
 	
 	def get_absolute_url(self):
 		return reverse('finder:embassy_info', args=(self.id,))
@@ -105,10 +110,10 @@ class Embassy(AutoUpdateModel):
 			self.government.save()
 			self.location.autoUpdate = False
 			self.location.save()
-
+			
 	def __init__(self, *args, **kwargs):
 		super(Embassy, self).__init__(*args, **kwargs)
-		self.start = (self.government,self.location,self.name,self.street_address,self.city,self.phone_number,self.fax_number,self.email_address,self.website)
+		self.start = None
 			
 	def __str__(self):
 		return self.name

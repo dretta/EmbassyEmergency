@@ -10,6 +10,8 @@ urlpatterns = [
 	url(r'^about/$', views.AboutView.as_view(), name='about'),
 	# ex: /finder/contact/
 	url(r'^contact/$', views.ContactView.as_view(), name='contact'),
+	# ex: /finder/embassy/create/
+	url(r'^embassy/create/$', views.EmbassyCreateView.as_view(), name='embassy_create'),	
 	# ex: /finder/country/create/
 	url(r'^country/create/$', views.CountryCreateView.as_view(), name='country_create'),	
 	# ex: /finder/embassy/
