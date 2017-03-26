@@ -5,6 +5,7 @@
 
 	<h2 class="title with-button">You're looking at the Country {{ country }}.</h2>
 	<a href="{% url 'finder:country_edit' country.code %}" class="title-button btn btn-default">Edit</a>
+	<a href="{% url 'finder:country_edit' country.code %}" class="title-button btn btn-default">Delete</a>
 
 	{% if governments %}
 		<h4 class="title">The Embassies sent by {{ country }} are:</h4>
