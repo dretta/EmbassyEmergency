@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Country, Embassy
 from django.template import loader
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 import requests
 from .forms import BootstrapModelForm
@@ -81,7 +81,20 @@ class CountryEditView(generic.edit.UpdateView):
 			return redirect(object)
 		else:
 			return super(CountryEditView, self).post(request, *args, **kwargs)
+
+class EmbassyDeleteView(generic.edit.DeleteView):
+	model = Embassy
+	template_name_suffix = '_delete'
+	success_url = reverse_lazy('finder:embassy_list')
 	
+	def post(self, request, *args, **kwargs):
+		print(self)
+		if "cancel" in request.POST:
+			object = self.get_object()
+			return redirect(object)
+		else:
+			return super(EmbassyDeleteView, self).post(request, *args, **kwargs)
+			
 class EmbassyView(generic.DetailView):
 	model = Embassy
 	template_name = 'finder/embassy_info.html'
