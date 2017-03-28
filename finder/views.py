@@ -95,6 +95,19 @@ class EmbassyDeleteView(generic.edit.DeleteView):
 		else:
 			return super(EmbassyDeleteView, self).post(request, *args, **kwargs)
 			
+class CountryDeleteView(generic.edit.DeleteView):
+	model = Country
+	template_name_suffix = '_delete'
+	success_url = reverse_lazy('finder:country_list')
+	
+	def post(self, request, *args, **kwargs):
+		print(self)
+		if "cancel" in request.POST:
+			object = self.get_object()
+			return redirect(object)
+		else:
+			return super(CountryDeleteView, self).post(request, *args, **kwargs)
+			
 class EmbassyView(generic.DetailView):
 	model = Embassy
 	template_name = 'finder/embassy_info.html'

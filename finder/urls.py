@@ -24,6 +24,8 @@ urlpatterns = [
 	url(r'^(?P<pk>[A-Z]{2})/edit/$', views.CountryEditView.as_view(), name='country_edit'),
 	# ex: /finder/5/delete/
 	url(r'^(?P<pk>[0-9]+)/delete/$', views.EmbassyDeleteView.as_view(), name='embassy_delete'),
+	# ex: /finder/AB/delete/
+	url(r'^(?P<pk>[A-Z]{2})/delete/$', views.CountryDeleteView.as_view(), name='country_delete'),
 	# ex: /finder/5/
 	url(r'^(?P<pk>[0-9]+)/$', views.EmbassyView.as_view(), name='embassy_info'),
 	# ex: /finder/AB/
