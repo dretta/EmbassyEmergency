@@ -2,13 +2,17 @@
 
 
 {% block content %}
-
-	<h2 class="title">Are you sure you want to delete "{{ object }}"?</h2>
+	{% if not hasEmbassy %}
+		<h2 class="title">Are you sure you want to delete "{{ object }}"?</h2>
 	
-	<form action="" method="post">
-		{% csrf_token %}
-		<input type="submit" value="Confirm" class="btn btn-primary"/>
-		<input type="submit" name="cancel" value="Cancel" class="btn btn-secondary"/>
-	</form>
+		<form action="" method="post">
+			{% csrf_token %}
+			<input type="submit" value="Confirm" class="btn btn-primary"/>
+			<input type="submit" name="cancel" value="Cancel" class="btn btn-secondary"/>
+		</form>
+	{% else %}
+		<h2 class="title">You cannot delete "{{ object }}" when it still has Embassies registered.</h2>
+		<a href="{% url 'finder:country_info' country.code %}" class="title-button btn btn-default">Return</a>
+	{% endif %}
 	
 {% endblock %}
