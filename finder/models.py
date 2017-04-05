@@ -73,7 +73,6 @@ class Country(AutoUpdateModel):
 		verbose_name = 'Country'
 		verbose_name_plural = 'Countries'
 
-
 class Embassy(AutoUpdateModel):
 	government = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="government")
 	location = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="location")
