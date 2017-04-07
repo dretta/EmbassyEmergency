@@ -11,8 +11,8 @@ body {
     text-align: center;
 	padding: 20px 15px 40px;
 }
-.row,
-.col{
+
+.row, .col{
     display: inline-block;
 }
 
