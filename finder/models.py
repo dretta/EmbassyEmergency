@@ -120,4 +120,3 @@ class Embassy(AutoUpdateModel):
 	class Meta:
 		verbose_name = 'Embassy'
 		verbose_name_plural = 'Embassies'
-		
