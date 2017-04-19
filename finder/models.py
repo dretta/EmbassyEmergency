@@ -44,7 +44,6 @@ class AutoUpdateModel(models.Model):
 	
 	class Meta:
 		abstract=True
-		
 
 class Country(AutoUpdateModel):
 
