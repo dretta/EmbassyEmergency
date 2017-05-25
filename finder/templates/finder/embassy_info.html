@@ -6,7 +6,6 @@
 <a href="{% url 'finder:embassy_edit' embassy.id %}" class="title-button btn btn-default">Edit</a>
 <a href="{% url 'finder:embassy_delete' embassy.id %}" class="title-button btn btn-default">Delete</a>
 
-
 <h3 class="sub-title"> This Embassy was sent from 
 	<a href="{% url 'finder:country_info' embassy.government.code %}">{{ embassy.government }}</a> 
 	to <a href="{% url 'finder:country_info' embassy.location.code %}">{{ embassy.location }}</a>
