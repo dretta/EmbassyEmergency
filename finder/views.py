@@ -110,7 +110,7 @@ class CountryDeleteView(generic.edit.DeleteView):
 			
 	def get_context_data(self, **kwargs):
 		context = super(CountryDeleteView, self).get_context_data(**kwargs)
-		context['hasEmbassy'] = Embassy.objects.select_related().filter(government=self.get_object().code).exists() or 
+		context['hasEmbassy'] = Embassy.objects.select_related().filter(government=self.get_object().code).exists() or \
 			Embassy.objects.select_related().filter(location=self.get_object().code).exists()
 		return context
 			
