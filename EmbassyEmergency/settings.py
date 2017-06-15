@@ -68,7 +68,16 @@ TEMPLATES = [
     },
 ]
 
+# Deployment
+# https://docs.djangoproject.com/en/1.10/howto/deployment/
+
 WSGI_APPLICATION = 'EmbassyEmergency.wsgi.application'
+
+SECURE_HSTS_SECONDS = 3600
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 # Database
