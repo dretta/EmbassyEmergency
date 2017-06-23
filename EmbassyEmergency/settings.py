@@ -79,6 +79,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+SECURE_BROWSER_XSS_FILTER = True
+
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
