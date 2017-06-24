@@ -23,7 +23,7 @@
 					<label for="sel1">Find Embassies sent by</label>
 				</div>
 				<div class="col">
-			<select class="form-control" name="government">
+					<select class="form-control" name="government">
 				{% for entry in countries %}
 					<option value="{{ entry.code }}">{{ entry.name }}</option>
 				{% endfor %}
