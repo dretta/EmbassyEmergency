@@ -24,7 +24,7 @@
 				</div>
 				<div class="col">
 					<select class="form-control" name="government">
-				{% for entry in countries %}
+						{% for entry in countries %}
 					<option value="{{ entry.code }}">{{ entry.name }}</option>
 				{% endfor %}
 			</select>
