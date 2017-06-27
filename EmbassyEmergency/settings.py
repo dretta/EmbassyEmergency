@@ -85,6 +85,8 @@ SECURE_SSL_REDIRECT = True
 
 SESSION_COOKIE_SECURE = True
 
+CSRF_COOKIE_SECURE = True
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
