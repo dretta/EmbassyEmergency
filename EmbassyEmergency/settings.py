@@ -91,6 +91,8 @@ CSRF_COOKIE_HTTPONLY = True
 
 X_FRAME_OPTIONS = 'DENY'
 
+ALLOWED_HOSTS = ['127.0.0.1', 'www.EmbassyEmergency.com']
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
